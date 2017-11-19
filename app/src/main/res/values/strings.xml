@@ -8,4 +8,8 @@
     <string name="vitamin_d_3">D3</string>
     <string name="arginin">Arginin</string>
     <string name="opc_counter">OPC Counter</string>
+    <string name="grape_seed_extract">Traubenkernextrakt</string>
+    <string name="body_weight">Körpergewicht</string>
+    <string name="opc_share">OPC Anteil</string>
+    <string name="opc_per_body_weight">OPC Menge pro kg</string>
 </resources>

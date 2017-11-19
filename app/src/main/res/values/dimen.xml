@@ -2,6 +2,7 @@
 <resources>
     <dimen name="selector_text_size_middle">20sp</dimen>
     <dimen name="selector_text_size_large">25sp</dimen>
+    <dimen name="selector_text_size_ultra_large">45sp</dimen>
     <dimen name="selector_text_size_small">16sp</dimen>
     <dimen name="selector_text_margin">10dp</dimen>
 </resources>
