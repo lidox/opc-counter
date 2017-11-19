@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.futuzon.opccounter.view.opc.ComingSoonFragment;
 import com.futuzon.opccounter.view.opc.OpcCounterFragment;
@@ -20,6 +22,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_launcher);
 
         //add the fragments you want to display in a List

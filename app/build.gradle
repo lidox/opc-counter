@@ -29,4 +29,7 @@ dependencies {
 
     // tablayout
     compile 'eu.long1:spacetablayout:1.0.4'
+
+    // cardview
+    compile 'com.android.support:cardview-v7:+'
 }
