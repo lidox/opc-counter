@@ -6,4 +6,9 @@
     <color name="colorGrey">#7D7D7D</color>
     <color name="colorBlack">#000000</color>
 
+    <color name="colorEdelBlack">#1A1B16</color>
+    <color name="colorPurple">#51276F</color>
+    <color name="colorOpcPink">#A5155B</color>
+    <color name="colorYellow">#D2D105</color>
+    <color name="colorGreen">#458637</color>
 </resources>
