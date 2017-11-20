@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="c_opc_amount_per_body_weight">com.futuzon.c_opc_amount_per_body_weight</string>
+    <string name="c_opc_body_weight">com.futuzon.c_opc_body_weight</string>
+    <string name="c_opc_share_within_grape_seed_extract">com.futuzon.c_opc_share_within_grape_seed_extract</string>
+</resources>
