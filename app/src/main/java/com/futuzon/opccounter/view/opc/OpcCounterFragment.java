@@ -1,5 +1,8 @@
 package com.futuzon.opccounter.view.opc;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,11 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.futuzon.opccounter.R;
+import com.futuzon.opccounter.controller.config.App;
+
+import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
 
 public class OpcCounterFragment extends Fragment {
 
     private String className = OpcCounterFragment.class.getSimpleName();
+    private Fragment self = this;
 
     public OpcCounterFragment() {
         // Required empty public constructor
@@ -57,6 +64,28 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'body weight' card view selected");
+                final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(App.getAppContext())
+                        .minValue(1)
+                        .maxValue(10)
+                        .defaultValue(1)
+                        .backgroundColor(Color.WHITE)
+                        .separatorColor(Color.TRANSPARENT)
+                        .textColor(Color.BLACK)
+                        .textSize(20)
+                        .enableFocusability(false)
+                        .wrapSelectorWheel(true)
+                        .build();
+
+                new AlertDialog.Builder(self.getActivity())
+                        .setTitle("Title")
+                        .setView(numberPicker)
+                        .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d(className, "You picked : " + numberPicker.getValue());;
+                            }
+                        })
+                        .show();
             }
         };
     }
