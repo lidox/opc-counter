@@ -20,7 +20,6 @@ import com.futuzon.opccounter.view.dialogs.NumberPickers;
 public class OpcCounterFragment extends Fragment {
 
     private String className = OpcCounterFragment.class.getSimpleName();
-    private Fragment self = this;
 
     public OpcCounterFragment() {
         // Required empty public constructor
@@ -44,6 +43,11 @@ public class OpcCounterFragment extends Fragment {
         setUiValues(R.id.opc_value, new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx), "mg");
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_opc_counter, container, false);
+    }
+
     /**
      * Set text of a TextView by its Id
      *
@@ -52,13 +56,11 @@ public class OpcCounterFragment extends Fragment {
      * @param unit   the text's unit
      */
     private void setUiValues(int viewId, int value, String unit) {
-        TextView textView = getView().findViewById(viewId);
-        textView.setText(value + " " + unit);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_opc_counter, container, false);
+        if (getView() != null) {
+            TextView textView = getView().findViewById(viewId);
+            String text = value + " " + unit;
+            textView.setText(text);
+        }
     }
 
     /**
@@ -68,9 +70,11 @@ public class OpcCounterFragment extends Fragment {
      * @param onClickListener the listener to be executed
      */
     private void setClickListenerById(int cardViewId, View.OnClickListener onClickListener) {
-        CardView cardView = getView().findViewById(cardViewId);
-        if (cardView != null && onClickListener != null) {
-            cardView.setOnClickListener(onClickListener);
+        if (getView() != null) {
+            CardView cardView = getView().findViewById(cardViewId);
+            if (cardView != null && onClickListener != null) {
+                cardView.setOnClickListener(onClickListener);
+            }
         }
     }
 
@@ -119,4 +123,5 @@ public class OpcCounterFragment extends Fragment {
             }
         };
     }
+
 }
