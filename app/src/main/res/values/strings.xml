@@ -9,4 +9,6 @@
     <string name="body_weight">Körpergewicht</string>
     <string name="opc_share">OPC Anteil</string>
     <string name="opc_per_body_weight">OPC Menge pro kg</string>
+    <string name="ok">ok</string>
+    <string name="cancel">abbrechen</string>
 </resources>

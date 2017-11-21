@@ -1,21 +1,20 @@
 package com.futuzon.opccounter.view.opc;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.futuzon.opccounter.R;
+import com.futuzon.opccounter.controller.calculation.OpcIntakeCalculator;
 import com.futuzon.opccounter.controller.config.App;
-
-import biz.kasual.materialnumberpicker.MaterialNumberPicker;
+import com.futuzon.opccounter.controller.opc.GlobalOpc;
+import com.futuzon.opccounter.view.dialogs.NumberPickers;
 
 
 public class OpcCounterFragment extends Fragment {
@@ -31,9 +30,30 @@ public class OpcCounterFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        // add click listeners to the buttons available
         setClickListenerById(R.id.card_view_body_weight, getOnClickListenerBodyWeight());
         setClickListenerById(R.id.card_view_opc_share, getOnClickListenerOpcShare());
         setClickListenerById(R.id.card_view_opc_per_body_weight, getOnClickListenerOpcAmountPerKg());
+
+        // set UI element's values
+        Context ctx = App.getAppContext();
+        setUiValues(R.id.body_weight_txt, GlobalOpc.getOpcBodyWeight(ctx).intValue(), "kg");
+        setUiValues(R.id.opc_share_txt, GlobalOpc.getOpcShareWithinGrapeSeedExtract(ctx).intValue(), "%");
+        setUiValues(R.id.opc_per_body_weight_txt, GlobalOpc.getOpcAmountPerBodyWeight(ctx).intValue(), "g");
+        setUiValues(R.id.grape_seed_extract_value, new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx), "mg");
+        setUiValues(R.id.opc_value, new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx), "mg");
+    }
+
+    /**
+     * Set text of a TextView by its Id
+     *
+     * @param viewId the view'S Id
+     * @param value  the text's value
+     * @param unit   the text's unit
+     */
+    private void setUiValues(int viewId, int value, String unit) {
+        TextView textView = getView().findViewById(viewId);
+        textView.setText(value + " " + unit);
     }
 
     @Override
@@ -64,28 +84,7 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'body weight' card view selected");
-                final MaterialNumberPicker numberPicker = new MaterialNumberPicker.Builder(App.getAppContext())
-                        .minValue(1)
-                        .maxValue(10)
-                        .defaultValue(1)
-                        .backgroundColor(Color.WHITE)
-                        .separatorColor(Color.TRANSPARENT)
-                        .textColor(Color.BLACK)
-                        .textSize(20)
-                        .enableFocusability(false)
-                        .wrapSelectorWheel(true)
-                        .build();
-
-                new AlertDialog.Builder(self.getActivity())
-                        .setTitle("Title")
-                        .setView(numberPicker)
-                        .setPositiveButton(getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.d(className, "You picked : " + numberPicker.getValue());;
-                            }
-                        })
-                        .show();
+                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_body_weight, App.getStringByRId(R.string.body_weight), 2, 150);
             }
         };
     }
@@ -100,8 +99,10 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'OPC share' card view selected");
+                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_share_within_grape_seed_extract, App.getStringByRId(R.string.opc_share), 1, 100);
             }
         };
+
     }
 
     /**
@@ -114,6 +115,7 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'OPC amount per kg' card view selected");
+                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_amount_per_body_weight, App.getStringByRId(R.string.opc_per_body_weight), 1, 10);
             }
         };
     }

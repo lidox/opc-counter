@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:gradient="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,82 +7,80 @@
     tools:context="com.futuzon.opccounter.view.opc.OpcCounterFragment">
 
     <RelativeLayout
-        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPurple">
+        android:background="@drawable/gradient_list">
 
-        <TextView
-            android:id="@+id/grape_seed_extract_title"
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/grape_seed_extract_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/opc_counter"
+                android:textSize="@dimen/selector_text_size_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/grape_seed_extract_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grape_seed_extract_title"
+                android:gravity="center_horizontal"
+                android:text="0 mg"
+                android:textSize="@dimen/selector_text_size_ultra_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/grape_seed_extract_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grape_seed_extract_value"
+                android:layout_margin="@dimen/selector_text_margin"
+                android:gravity="center_horizontal"
+                android:text="@string/grape_seed_extract"
+                android:textSize="@dimen/selector_text_size_middle" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/header2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:text="@string/opc_counter"
-            android:textSize="@dimen/selector_text_size_large"
-            android:textStyle="bold" />
+            android:layout_below="@+id/header">
 
-        <TextView
-            android:id="@+id/grape_seed_extract_value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/grape_seed_extract_title"
-            android:gravity="center_horizontal"
-            android:text="0 mg"
-            android:textSize="@dimen/selector_text_size_ultra_large"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/opc_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:text="0 mg"
+                android:textSize="@dimen/selector_text_size_ultra_large"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/grape_seed_extract_subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/grape_seed_extract_value"
-            android:layout_margin="@dimen/selector_text_margin"
-            android:gravity="center_horizontal"
-            android:text="@string/grape_seed_extract"
-            android:textSize="@dimen/selector_text_size_large" />
+            <TextView
+                android:id="@+id/opc_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/opc_value"
+                android:layout_margin="@dimen/selector_text_margin"
+                android:gravity="center_horizontal"
+                android:text="OPC"
+                android:textSize="@dimen/selector_text_size_middle" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/header2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:background="@color/colorOpcPink">
-
-        <TextView
-            android:id="@+id/opc_value"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:text="0 mg"
-            android:textSize="@dimen/selector_text_size_ultra_large"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/opc_subtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/opc_value"
-            android:layout_margin="@dimen/selector_text_margin"
-            android:gravity="center_horizontal"
-            android:text="OPC"
-            android:textSize="@dimen/selector_text_size_large" />
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header2">
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/colorWhite"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header2">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/card_view_body_weight"
@@ -230,7 +229,7 @@
 
         </RelativeLayout>
 
-    </ScrollView>
+    </RelativeLayout>
 
 
-</RelativeLayout>
+</ScrollView>
