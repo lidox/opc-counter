@@ -88,7 +88,7 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'body weight' card view selected");
-                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_body_weight, App.getStringByRId(R.string.body_weight), 2, 150);
+                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_body_weight, App.getStringByRId(R.string.body_weight), 2, 150, view);
             }
         };
     }
@@ -103,7 +103,7 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'OPC share' card view selected");
-                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_share_within_grape_seed_extract, App.getStringByRId(R.string.opc_share), 1, 100);
+                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_share_within_grape_seed_extract, App.getStringByRId(R.string.opc_share), 1, 100, view);
             }
         };
 
@@ -119,7 +119,7 @@ public class OpcCounterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.d(className, "'OPC amount per kg' card view selected");
-                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_amount_per_body_weight, App.getStringByRId(R.string.opc_per_body_weight), 1, 10);
+                new NumberPickers(getActivity()).openNumberPicker(R.string.c_opc_amount_per_body_weight, App.getStringByRId(R.string.opc_per_body_weight), 1, 10, view);
             }
         };
     }

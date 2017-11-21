@@ -5,12 +5,9 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -18,11 +15,9 @@ import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.futuzon.opccounter.LauncherActivity;
 import com.futuzon.opccounter.R;
 import com.futuzon.opccounter.controller.calculation.OpcIntakeCalculator;
 import com.futuzon.opccounter.controller.config.App;
-import com.futuzon.opccounter.controller.opc.GlobalOpc;
 import com.futuzon.opccounter.controller.utils.Global;
 
 import java.lang.reflect.Field;
@@ -35,7 +30,7 @@ public class NumberPickers {
         this.ctx = context;
     }
 
-    public void openNumberPicker(final int globalValueId, String dialogTitle, int minValue, int maxValue) {
+    public void openNumberPicker(final int globalValueId, String dialogTitle, int minValue, int maxValue, final View selectedView) {
         RelativeLayout linearLayout = new RelativeLayout(App.getAppContext());
         final NumberPicker aNumberPicker = new NumberPicker(App.getAppContext());
 
@@ -65,21 +60,21 @@ public class NumberPickers {
                                                 int id) {
                                 Log.d(NumberPickers.class.getSimpleName(), "Number picker new value selected: " + aNumberPicker.getValue());
 
-                                /*
-                                int oldRecommendedGrapeSeedExtractDailyRation = new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx);
-                                int oldRecommendedOpcDailyRation = new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx);
-                                double oldValue = Global.getDoubleByKey(globalValueId, 2);
+                                // get old values before making an update
+                                int oldOpcValue = new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx);
+                                int oldGrapeSeedExtract = new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx);
 
+                                // update database value
                                 new Global(App.getAppContext()).putDouble(globalValueId, aNumberPicker.getValue());
-                                //startCountAnimation((int) Math.round(oldValue), aNumberPicker.getValue(),  R.id.grape_seed_extract_value);
-                                startCountAnimation((int) Math.round(oldRecommendedGrapeSeedExtractDailyRation), new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx),  R.id.grape_seed_extract_value);
-                                startCountAnimation((int) Math.round(oldRecommendedOpcDailyRation), new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx),  R.id.opc_value);
-                                */
 
-                                new Global(App.getAppContext()).putDouble(globalValueId, aNumberPicker.getValue());
-                                ctx.finish();
-                                ctx.startActivity(new Intent(ctx, LauncherActivity.class));
+                                // update OPC value in UI using animation
+                                startCountAnimation((int) Math.round(oldOpcValue), new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx), R.id.opc_value);
 
+                                // update 'Grape Seed Extract' value in UI using animation
+                                startCountAnimation((int) Math.round(oldGrapeSeedExtract), new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx), R.id.grape_seed_extract_value);
+
+                                // update changed value in UI
+                                updateNewValueInUi(aNumberPicker.getValue(), globalValueId);
                             }
                         })
                 .setNegativeButton(App.getStringByRId(R.string.cancel),
@@ -92,6 +87,27 @@ public class NumberPickers {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.gradient_list);
         alertDialog.show();
+    }
+
+    private void updateNewValueInUi(int newValue, int globalValueId) {
+
+        // get view id by value id
+        int viewId = R.id.body_weight_txt;
+        if(globalValueId == R.string.c_opc_amount_per_body_weight)
+            viewId = R.id.opc_per_body_weight_txt;
+        else if(globalValueId == R.string.c_opc_share_within_grape_seed_extract)
+            viewId = R.id.opc_share_txt;
+        else if(globalValueId == R.string.c_opc_body_weight)
+            viewId = R.id.body_weight_txt;
+
+        if (ctx != null) {
+            TextView textView = ctx.findViewById(viewId);
+            String oldValue = textView.getText().toString();
+            Log.d("", "string: " + oldValue);
+            String[] valueUnit = oldValue.split(" ");
+            String text = newValue + " " + valueUnit[1];
+            textView.setText(text);
+        }
     }
 
     @SuppressLint("LongLogTag")
