@@ -9,7 +9,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent">
+        android:background="@color/colorPurple">
 
         <TextView
             android:id="@+id/grape_seed_extract_title"
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
-        android:background="@color/colorGrey">
+        android:background="@color/colorOpcPink">
 
         <TextView
             android:id="@+id/opc_value"
@@ -80,6 +80,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:background="@color/colorWhite"
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
