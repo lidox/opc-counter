@@ -16,7 +16,7 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
-        Log.i("App", "running application");
+        Log.i(App.class.getSimpleName(), "running application");
         super.onCreate();
         ctx = this.getApplicationContext();
     }
@@ -27,10 +27,10 @@ public class App extends Application {
 
     /**
      * Get the string by resource id
-     * @param R_ID the resource id
+     * @param resId the resource id
      * @return the string by resource id
      */
-    public static String getStringByRId(int R_ID) {
-        return ctx.getResources().getString(R_ID);
+    public static String getStringByRId(int resId) {
+        return ctx.getResources().getString(resId);
     }
 }

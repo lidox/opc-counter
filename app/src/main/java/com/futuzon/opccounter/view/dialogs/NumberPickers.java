@@ -32,20 +32,19 @@ public class NumberPickers {
 
     public void openNumberPicker(final int globalValueId, String dialogTitle, int minValue, int maxValue) {
         RelativeLayout linearLayout = new RelativeLayout(App.getAppContext());
-        final NumberPicker aNumberPicker = new NumberPicker(App.getAppContext());
 
-        aNumberPicker.setMaxValue(maxValue);
-        aNumberPicker.setMinValue(minValue);
-        aNumberPicker.setValue((int) new Global(App.getAppContext()).getDoubleByKey(globalValueId, 2));
-        setNumberPickerTextColor(aNumberPicker, Color.WHITE);
+        final NumberPicker numberPicker = new NumberPicker(App.getAppContext());
+        numberPicker.setMaxValue(maxValue);
+        numberPicker.setMinValue(minValue);
+        numberPicker.setValue((int) new Global(App.getAppContext()).getDoubleByKey(globalValueId, 2));
+        setNumberPickerTextColor(numberPicker, Color.WHITE);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(50, 50);
         int wrapContent = RelativeLayout.LayoutParams.WRAP_CONTENT;
-        RelativeLayout.LayoutParams numPicerParams = new RelativeLayout.LayoutParams(wrapContent, wrapContent);
-        numPicerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-
+        RelativeLayout.LayoutParams numPickerParams = new RelativeLayout.LayoutParams(wrapContent, wrapContent);
+        numPickerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
         linearLayout.setLayoutParams(params);
-        linearLayout.addView(aNumberPicker, numPicerParams);
+        linearLayout.addView(numberPicker, numPickerParams);
 
         // dialog
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
@@ -58,23 +57,23 @@ public class NumberPickers {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int id) {
-                                Log.d(NumberPickers.class.getSimpleName(), "Number picker new value selected: " + aNumberPicker.getValue());
+                                Log.d(NumberPickers.class.getSimpleName(), "Number picker new value selected: " + numberPicker.getValue());
 
                                 // get old values before making an update
                                 int oldOpcValue = new OpcIntakeCalculator().getRecommendedOpcDailyRation(activity);
                                 int oldGrapeSeedExtract = new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(activity);
 
                                 // update database value
-                                new Global(App.getAppContext()).putDouble(globalValueId, aNumberPicker.getValue());
+                                new Global(App.getAppContext()).putDouble(globalValueId, numberPicker.getValue());
 
                                 // update OPC value in UI using animation
-                                startCountAnimation((int) Math.round(oldOpcValue), new OpcIntakeCalculator().getRecommendedOpcDailyRation(activity), R.id.opc_value);
+                                updateUiByCountAnimation((int) Math.round(oldOpcValue), new OpcIntakeCalculator().getRecommendedOpcDailyRation(activity), R.id.opc_value);
 
                                 // update 'Grape Seed Extract' value in UI using animation
-                                startCountAnimation((int) Math.round(oldGrapeSeedExtract), new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(activity), R.id.grape_seed_extract_value);
+                                updateUiByCountAnimation((int) Math.round(oldGrapeSeedExtract), new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(activity), R.id.grape_seed_extract_value);
 
                                 // update changed value in UI
-                                updateNewValueInUi(aNumberPicker.getValue(), globalValueId);
+                                updateUiValue(numberPicker.getValue(), globalValueId);
                             }
                         })
                 .setNegativeButton(App.getStringByRId(R.string.cancel),
@@ -89,7 +88,7 @@ public class NumberPickers {
         alertDialog.show();
     }
 
-    private void updateNewValueInUi(int newValue, int globalValueId) {
+    private void updateUiValue(int newValue, int globalValueId) {
 
         // get view id by value id
         int viewId = R.id.body_weight_txt;
@@ -136,13 +135,13 @@ public class NumberPickers {
         return false;
     }
 
-    private void startCountAnimation(int oldVal, int newVal, final int viewId) {
+    private void updateUiByCountAnimation(int oldVal, int newVal, final int viewId) {
         ValueAnimator animator = ValueAnimator.ofInt(oldVal, newVal);
         animator.setDuration(3000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
                 TextView textView = activity.findViewById(viewId);
-                textView.setText(animation.getAnimatedValue().toString());
+                textView.setText(animation.getAnimatedValue().toString() + " mg");
             }
         });
         animator.start();
