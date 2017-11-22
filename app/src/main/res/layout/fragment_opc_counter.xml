@@ -2,19 +2,19 @@
     xmlns:gradient="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     tools:context="com.futuzon.opccounter.view.opc.OpcCounterFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/gradient_list">
 
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/grape_seed_extract_title"
@@ -42,9 +42,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/grape_seed_extract_value"
-                android:layout_marginRight="@dimen/selector_text_margin"
-                android:layout_marginLeft="@dimen/selector_text_margin"
                 android:layout_marginBottom="@dimen/selector_text_margin"
+                android:layout_marginLeft="@dimen/selector_text_margin"
+                android:layout_marginRight="@dimen/selector_text_margin"
                 android:gravity="center_horizontal"
                 android:text="@string/grape_seed_extract"
                 android:textSize="@dimen/selector_text_size_small" />
@@ -72,9 +72,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/opc_value"
-                android:layout_marginRight="@dimen/selector_text_margin"
-                android:layout_marginLeft="@dimen/selector_text_margin"
                 android:layout_marginBottom="@dimen/selector_text_margin"
+                android:layout_marginLeft="@dimen/selector_text_margin"
+                android:layout_marginRight="@dimen/selector_text_margin"
                 android:gravity="center_horizontal"
                 android:text="OPC"
                 android:textSize="@dimen/selector_text_size_small" />

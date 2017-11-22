@@ -24,13 +24,13 @@ import java.lang.reflect.Field;
 
 public class NumberPickers {
 
-    private static Activity ctx = null;
+    private Activity activity = null;
 
-    public NumberPickers(Activity context) {
-        this.ctx = context;
+    public NumberPickers(Activity activity) {
+        this.activity = activity;
     }
 
-    public void openNumberPicker(final int globalValueId, String dialogTitle, int minValue, int maxValue, final View selectedView) {
+    public void openNumberPicker(final int globalValueId, String dialogTitle, int minValue, int maxValue) {
         RelativeLayout linearLayout = new RelativeLayout(App.getAppContext());
         final NumberPicker aNumberPicker = new NumberPicker(App.getAppContext());
 
@@ -48,7 +48,7 @@ public class NumberPickers {
         linearLayout.addView(aNumberPicker, numPicerParams);
 
         // dialog
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ctx);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
         alertDialogBuilder.setTitle(dialogTitle);
         alertDialogBuilder.setView(linearLayout);
 
@@ -61,17 +61,17 @@ public class NumberPickers {
                                 Log.d(NumberPickers.class.getSimpleName(), "Number picker new value selected: " + aNumberPicker.getValue());
 
                                 // get old values before making an update
-                                int oldOpcValue = new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx);
-                                int oldGrapeSeedExtract = new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx);
+                                int oldOpcValue = new OpcIntakeCalculator().getRecommendedOpcDailyRation(activity);
+                                int oldGrapeSeedExtract = new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(activity);
 
                                 // update database value
                                 new Global(App.getAppContext()).putDouble(globalValueId, aNumberPicker.getValue());
 
                                 // update OPC value in UI using animation
-                                startCountAnimation((int) Math.round(oldOpcValue), new OpcIntakeCalculator().getRecommendedOpcDailyRation(ctx), R.id.opc_value);
+                                startCountAnimation((int) Math.round(oldOpcValue), new OpcIntakeCalculator().getRecommendedOpcDailyRation(activity), R.id.opc_value);
 
                                 // update 'Grape Seed Extract' value in UI using animation
-                                startCountAnimation((int) Math.round(oldGrapeSeedExtract), new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(ctx), R.id.grape_seed_extract_value);
+                                startCountAnimation((int) Math.round(oldGrapeSeedExtract), new OpcIntakeCalculator().getRecommendedGrapeSeedExtractDailyRation(activity), R.id.grape_seed_extract_value);
 
                                 // update changed value in UI
                                 updateNewValueInUi(aNumberPicker.getValue(), globalValueId);
@@ -100,8 +100,8 @@ public class NumberPickers {
         else if(globalValueId == R.string.c_opc_body_weight)
             viewId = R.id.body_weight_txt;
 
-        if (ctx != null) {
-            TextView textView = ctx.findViewById(viewId);
+        if (activity != null) {
+            TextView textView = activity.findViewById(viewId);
             String oldValue = textView.getText().toString();
             Log.d("", "string: " + oldValue);
             String[] valueUnit = oldValue.split(" ");
@@ -141,7 +141,7 @@ public class NumberPickers {
         animator.setDuration(3000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
-                TextView textView = ctx.findViewById(viewId);
+                TextView textView = activity.findViewById(viewId);
                 textView.setText(animation.getAnimatedValue().toString());
             }
         });

@@ -2,10 +2,20 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/opc_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.futuzon.opccounter.LauncherActivity">
 
+    <!--
+    <fragment android:name="com.futuzon.opccounter.view.opc.OpcCounterFragment"
+        android:id="@+id/opc_fragment"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+    -->
+
+    <!--
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
@@ -25,5 +35,6 @@
         app:text_three="@string/arginin"
         app:button_color="@color/colorAccent"
         app:starting_position="one" />
+        -->
 
 </android.support.constraint.ConstraintLayout>
