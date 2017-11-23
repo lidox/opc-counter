@@ -1,9 +1,18 @@
-dist: trusty #Force trusty for git-lfs (default from 2017-09)
-
 language: android
+
+jdk:
+    - oraclejdk8
+
+android:
+  components:
+    - tools
+    - build-tools-26.1.0
+    - platform-tools
+    - android-26
 
 notifications:
   email: false
 
 script:
+    - ./gradlew assembleFdroidRelease
     - ./gradlew test
