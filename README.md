@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/lidox/opc-counter.svg?branch=master)](https://travis-ci.org/lidox/opc-counter)
-
+[![license](https://img.shields.io/github/license/lidox/opc-counter.svg)]()
 # OPC App
 Choose your daily OPC ratio.
 
