@@ -9,9 +9,14 @@ android:
     - build-tools-26.1.0
     - platform-tools
     - android-26
+    
+  licenses:
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 
 notifications:
   email: false
-
+  
 script:
     - ./gradlew test
