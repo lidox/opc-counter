@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.futuzon.opccounter.R;
 
+// TODO: Not used yet
 public class ComingSoonFragment extends Fragment {
 
     @Override
